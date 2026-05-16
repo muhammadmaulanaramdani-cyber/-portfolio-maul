@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Muhammad Maulana Ramdani | SysAdmin Linux & Server Monitor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #0f0f1a 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00d9ff;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00b7d9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00d9ff;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+        }
+
+        .logo span {
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #00d9ff;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: #00d9ff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #00d9ff;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #b0b0b0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #00d9ff, #00a2cc);
+            color: #0a0a0a;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 0 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #00d9ff;
+            color: #00d9ff;
+        }
+
+        .btn-outline:hover {
+            background: #00d9ff;
+            color: #0a0a0a;
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-img {
+            text-align: center;
+        }
+
+        .profile-icon {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #00d9ff, #00ff88);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .profile-icon i {
+            font-size: 120px;
+            color: #0a0a0a;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #00d9ff;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: #00d9ff;
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            color: #00d9ff;
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #00d9ff;
+        }
+
+        .timeline-item h3 {
+            color: #00d9ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-date {
+            color: #00ff88;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card i {
+            font-size: 2.5rem;
+            color: #00d9ff;
+            margin-bottom: 1rem;
+        }
+
+        .project-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Contact */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-family: inherit;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #00d9ff, #00a2cc);
+            border: none;
+            border-radius: 8px;
+            color: #0a0a0a;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: #e0e0e0;
+            font-size: 2rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #00d9ff;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .typing-text {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Light Mode */
+        body.light-mode {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            color: #1a1a1a;
+        }
+
+        body.light-mode .skill-card,
+        body.light-mode .timeline-item,
+        body.light-mode .project-card {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode nav {
+            background: rgba(245, 245, 245, 0.95);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">MR<span>.</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Muhammad Maulana Ramdani</h1>
+                    <div class="typing-text" id="typing"></div>
+                    <p>18 tahun | SMK Wikrama Bogor | TJKT</p>
+                    <div>
+                        <a href="#" class="btn" id="downloadCV">Download CV</a>
+                        <a href="#contact" class="btn btn-outline">Contact Me</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title fade-in">About Me</h2>
+                <div class="about-content">
+                    <div class="about-img fade-in">
+                        <div class="profile-icon">
+                            <i class="fas fa-user-astronaut"></i>
+                        </div>
+                    </div>
+                    <div class="about-text fade-in">
+                        <h3>SysAdmin Linux & Server Monitor</h3>
+                        <p>Halo! Saya Muhammad Maulana Ramdani, seorang siswa SMK Wikrama Bogor jurusan TJKT (Teknik Jaringan Komputer dan Telekomunikasi) yang berusia 18 tahun. Ketertarikan saya pada dunia server dan infrastruktur IT dimulai sejak kelas 10, ketika saya pertama kali mencoba Linux.</p>
+                        <p>Sejak saat itu, saya terus belajar dan mengembangkan kemampuan di bidang system administration. Saya pernah menjabat sebagai System Administration Linux dan bertanggung jawab dalam monitoring server. Pengalaman ini mengajarkan saya tentang stabilitas sistem, keamanan server, dan pentingnya monitoring proaktif.</p>
+                        <p>Saya percaya bahwa seorang sysadmin yang baik bukan hanya yang bisa mengatasi masalah, tapi juga yang bisa mencegahnya terjadi. Saat ini saya terus mendalami automation, containerization, dan cloud computing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="container">
+                <h2 class="section-title fade-in">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card fade-in"><i class="fab fa-linux"></i><h3>Linux Server</h3><p>Ubuntu, Debian, CentOS</p></div>
+                    <div class="skill-card fade-in"><i class="fas fa-chart-line"></i><h3>Server Monitoring</h3><p>Zabbix, Grafana, Prometheus</p></div>
+                    <div class="skill-card fade-in"><i class="fas fa-terminal"></i><h3>Bash Scripting</h3><p>Automation & Cron Jobs</p></div>
+                    <div class="skill-card fade-in"><i class="fas fa-network-wired"></i><h3>Network Configuration</h3><p>DNS, DHCP, Firewall, Routing</p></div>
+                    <div class="skill-card fade-in"><i class="fas fa-shield-alt"></i><h3>Security</h3><p>SSH Hardening, iptables, Fail2ban</p></div>
+                    <div class="skill-card fade-in"><i class="fas fa-database"></i><h3>Database Server</h3><p>MySQL, PostgreSQL Basic</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience">
+            <div class="container">
+                <h2 class="section-title fade-in">Experience & Education</h2>
+                <div class="timeline">
+                    <div class="timeline-item fade-in"><h3>System Administration Linux</h3><div class="timeline-date">2024 - Present</div><p>Menjabat sebagai sysadmin Linux, bertanggung jawab dalam maintenance server, user management, backup & restore, serta troubleshooting sistem.</p></div>
+                    <div class="timeline-item fade-in"><h3>Server Monitoring Specialist</h3><div class="timeline-date">2024 - Present</div><p>Memonitoring performa server secara real-time menggunakan Zabbix dan Grafana. Membuat alert system untuk deteksi dini potensi masalah.</p></div>
+                    <div class="timeline-item fade-in"><h3>SMK Wikrama Bogor</h3><div class="timeline-date">2024 - 2027</div><p>Jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT). Aktif dalam praktikum server, jaringan, dan kegiatan kompetisi IT.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="container">
+                <h2 class="section-title fade-in">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card fade-in"><i class="fas fa-chart-pie"></i><h3>Server Monitoring Dashboard</h3><p>Membangun dashboard monitoring dengan Grafana dan Prometheus untuk memantau CPU, RAM, disk usage, dan network traffic dari 5 server sekaligus.</p></div>
+                    <div class="project-card fade-in"><i class="fas fa-database"></i><h3>Automated Backup System</h3><p>Bash script untuk otomatisasi backup database MySQL dan file konfigurasi ke remote server via rsync, dilengkapi notifikasi Telegram.</p></div>
+                    <div class="project-card fade-in"><i class="fas fa-globe"></i><h3>Web Server Deployment</h3><p>Deploy web server dengan Nginx + Let's Encrypt SSL, konfigurasi virtual host, dan load balancing sederhana menggunakan HAProxy.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title fade-in">Contact Me</h2>
+                <div class="contact-content">
+                    <form class="contact-form fade-in" id="contactForm">
+                        <input type="text" placeholder="Nama Lengkap" required>
+                        <input type="email" placeholder="Email" required>
+                        <textarea rows="5" placeholder="Pesan..." required></textarea>
+                        <button type="submit">Kirim Pesan</button>
+                    </form>
+                    <div class="contact-info fade-in">
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                        <p style="text-align: center; margin-top: 2rem;"><i class="fas fa-envelope"></i> maulana.ramdani@wikrama.sch.id</p>
+                        <p style="text-align: center;"><i class="fas fa-map-marker-alt"></i> Bogor, Indonesia</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Muhammad Maulana Ramdani | SysAdmin Linux & Server Monitor | TJKT SMK Wikrama Bogor</p>
+    </footer>
+
+    <script>
+        // Typing Animation
+        const roles = ["SysAdmin Linux", "Server Monitor", "18 Tahun | TJKT", "SMK Wikrama Bogor"];
+        let index = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById("typing");
+        
+        function typeEffect() {
+            const currentRole = roles[index];
+            if (isDeleting) {
+                typingElement.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            if (!isDeleting && charIndex === currentRole.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 2000);
+                return;
+            }
+            
+            if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                index = (index + 1) % roles.length;
+                setTimeout(typeEffect, 500);
+                return;
+            }
+            
+            setTimeout(typeEffect, isDeleting ? 50 : 100);
+        }
+        
+        typeEffect();
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById("themeToggle");
+        const icon = themeToggle.querySelector("i");
+        
+        themeToggle.addEventListener("click", () => {
+            document.body.classList.toggle("light-mode");
+            if (document.body.classList.contains("light-mode")) {
+                icon.classList.remove("fa-moon");
+                icon.classList.add("fa-sun");
+            } else {
+                icon.classList.remove("fa-sun");
+                icon.classList.add("fa-moon");
+            }
+        });
+        
+        // Fade in on scroll
+        const fadeElements = document.querySelectorAll(".fade-in");
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(el => observer.observe(el));
+        
+        // Contact Form Submission
+        const contactForm = document.getElementById("contactForm");
+        contactForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            alert("Terima kasih! Pesan Anda telah terkirim. Saya akan segera merespon.");
+            contactForm.reset();
+        });
+        
+        // Download CV Button
+        document.getElementById("downloadCV").addEventListener("click", (e) => {
+            e.preventDefault();
+            alert("Fitur download CV akan segera tersedia. Untuk sementara, silakan hubungi saya langsung ya!");
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute("href"));
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            });
+        });
+        
+        // Add visible class to elements already in view on load
+        setTimeout(() => {
+            fadeElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.classList.add("visible");
+                }
+            });
+        }, 100);
+    </script>
+</body>
+</html>
